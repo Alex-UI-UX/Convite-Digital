@@ -25,7 +25,7 @@ export default function Home() {
       {/* HERO - Cartaz principal */}
       <section className="relative w-full">
         <Image
-          src="/img/cartaz.png"
+          src="/img/cartaz2.png"
           alt="Convite - 1 Ano do José Rodrigo"
           width={800}
           height={1200}

@@ -1,7 +1,7 @@
 const CACHE_NAME = "convite-v1";
 const STATIC_ASSETS = [
   "/",
-  "/img/cartaz.png",
+  "/img/cartaz2.png",
   "/img/divisor.png",
   "/img/wanted.png",
   "/icons/icon-192.png",
