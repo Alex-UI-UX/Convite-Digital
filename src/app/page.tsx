@@ -117,22 +117,27 @@ export default async function Home() {
       </section>
 
       {/* MAPA */}
-      {event.embedMaps && (
-        <section className="px-6 pb-8 max-w-lg mx-auto w-full">
-          <div className="rounded-2xl overflow-hidden border-2 border-[var(--color-dourado)]/40">
-            <iframe
-              src={event.embedMaps}
-              width="100%"
-              height="250"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Localização do evento"
-            />
-          </div>
-        </section>
-      )}
+      {event.embedMaps && (() => {
+        let mapSrc = event.embedMaps.trim();
+        const srcMatch = mapSrc.match(/src=["']([^"']+)["']/);
+        if (srcMatch) mapSrc = srcMatch[1];
+        return (
+          <section className="px-6 pb-8 max-w-lg mx-auto w-full">
+            <div className="rounded-2xl overflow-hidden border-2 border-[var(--color-dourado)]/40">
+              <iframe
+                src={mapSrc}
+                width="100%"
+                height="250"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Localização do evento"
+              />
+            </div>
+          </section>
+        );
+      })()}
 
       {/* DIVISOR */}
       <div className="w-full">
