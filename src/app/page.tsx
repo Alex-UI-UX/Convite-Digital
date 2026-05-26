@@ -15,13 +15,12 @@ const defaults = {
   horario: "a partir das 19:00",
   nomeLocal: "Salão de Festas",
   endereco: "Rua Pereira Barreto, 416 - Centro, Pradópolis - SP",
-  embedMaps:
-    "https://maps.google.com/maps?q=Rua+Pereira+Barreto+416+Pradopolis+SP&t=&z=16&ie=UTF8&iwloc=&output=embed",
+  embedMaps: "",
   mensagemTematica: "MEU PRIMEIRO ANINHO!",
   subtituloMensagem:
     "Venha comemorar junto comigo nesta aventura para me tornar o rei dos piratas.\nVenha fazer parte da minha tripulação!",
   textoRecados: "Deixe aqui um recadinho! Prometo ler com muito carinho!",
-  prazoConfirmacao: "28/06/2026 - 22:45",
+  prazoConfirmacao: "",
 };
 
 export default async function Home() {
@@ -72,9 +71,11 @@ export default async function Home() {
           Confirme sua presença e ajude o anfitrião a organizar a festa
         </p>
 
-        <p className="text-sm text-center text-[var(--color-marrom)] opacity-70">
-          Prazo para confirmações até {event.prazoConfirmacao}
-        </p>
+        {event.prazoConfirmacao && (
+          <p className="text-sm text-center text-[var(--color-marrom)] opacity-70">
+            Prazo para confirmações até {event.prazoConfirmacao}
+          </p>
+        )}
       </section>
 
       {/* DIVISOR */}
@@ -116,20 +117,22 @@ export default async function Home() {
       </section>
 
       {/* MAPA */}
-      <section className="px-6 pb-8 max-w-lg mx-auto w-full">
-        <div className="rounded-2xl overflow-hidden border-2 border-[var(--color-dourado)]/40">
-          <iframe
-            src={event.embedMaps}
-            width="100%"
-            height="250"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Localização do evento"
-          />
-        </div>
-      </section>
+      {event.embedMaps && (
+        <section className="px-6 pb-8 max-w-lg mx-auto w-full">
+          <div className="rounded-2xl overflow-hidden border-2 border-[var(--color-dourado)]/40">
+            <iframe
+              src={event.embedMaps}
+              width="100%"
+              height="250"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Localização do evento"
+            />
+          </div>
+        </section>
+      )}
 
       {/* DIVISOR */}
       <div className="w-full">
@@ -178,7 +181,7 @@ export default async function Home() {
       <div className="h-20" />
 
       {/* BOTÃO FIXO INFERIOR */}
-      <FixedBottomButton />
+      <FixedBottomButton prazoConfirmacao={event.prazoConfirmacao} />
     </main>
   );
 }
