@@ -7,9 +7,11 @@ import ConfirmModal from "./ConfirmModal";
 interface RsvpData {
   status: "confirmado" | "recusado";
   nome: string;
+  expiresAt: number;
 }
 
 const STORAGE_KEY = "convite_rsvp";
+const EXPIRY_DAYS = 90;
 
 export default function FixedBottomButton() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -20,7 +22,12 @@ export default function FixedBottomButton() {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
-        setRsvp(JSON.parse(saved));
+        const parsed: RsvpData = JSON.parse(saved);
+        if (parsed.expiresAt && Date.now() > parsed.expiresAt) {
+          localStorage.removeItem(STORAGE_KEY);
+        } else {
+          setRsvp(parsed);
+        }
       }
     } catch {
       // localStorage indisponível
@@ -29,7 +36,8 @@ export default function FixedBottomButton() {
   }, []);
 
   const handleConfirmed = (status: "confirmado" | "recusado", nome: string) => {
-    const data: RsvpData = { status, nome };
+    const expiresAt = Date.now() + EXPIRY_DAYS * 24 * 60 * 60 * 1000;
+    const data: RsvpData = { status, nome, expiresAt };
     setRsvp(data);
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));

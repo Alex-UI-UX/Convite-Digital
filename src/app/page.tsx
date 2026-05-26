@@ -2,6 +2,7 @@ import Image from "next/image";
 import { MapPin, Calendar, Clock } from "lucide-react";
 import FixedBottomButton from "@/components/FixedBottomButton";
 import RecadosSection from "@/components/RecadosSection";
+import CountdownTimer from "@/components/CountdownTimer";
 import { connectDB } from "@/lib/mongodb";
 import Event from "@/models/Event";
 
@@ -164,6 +165,9 @@ export default async function Home() {
 
       {/* RECADOS */}
       <RecadosSection textoRecados={event.textoRecados} />
+
+      {/* CONTADOR REGRESSIVO */}
+      <CountdownTimer dataEvento={event.data} horario={event.horario} />
 
       {/* CRÉDITO */}
       <p className="text-center text-[10px] text-[var(--color-marrom)] opacity-30 py-4">
