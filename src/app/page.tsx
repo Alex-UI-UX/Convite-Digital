@@ -2,23 +2,39 @@ import Image from "next/image";
 import { MapPin, Calendar, Clock } from "lucide-react";
 import FixedBottomButton from "@/components/FixedBottomButton";
 import RecadosSection from "@/components/RecadosSection";
+import { connectDB } from "@/lib/mongodb";
+import Event from "@/models/Event";
 
-export default function Home() {
-  const event = {
-    nomeCrianca: "José Rodrigo",
-    tituloEvento: "Aniversário do José Rodrigo",
-    data: "13/07/2026",
-    horario: "a partir das 19:00",
-    nomeLocal: "Salão de Festas",
-    endereco: "Rua Pereira Barreto, 416 - Centro, Pradópolis - SP",
-    embedMaps:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3718.123!2d-48.816!3d-21.364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDIxJzUwLjQiUyA0OMKwNDgnNTcuNiJX!5e0!3m2!1spt-BR!2sbr!4v1",
-    mensagemTematica: "MEU PRIMEIRO ANINHO!",
-    subtituloMensagem:
-      "Venha comemorar junto comigo nesta aventura para me tornar o rei dos piratas.\nVenha fazer parte da minha tripulação!",
-    textoRecados: "Deixe aqui um recadinho! Prometo ler com muito carinho!",
-    prazoConfirmacao: "28/06/2026 - 22:45",
-  };
+export const dynamic = "force-dynamic";
+
+const defaults = {
+  nomeCrianca: "José Rodrigo",
+  tituloEvento: "Aniversário do José Rodrigo",
+  data: "13/07/2026",
+  horario: "a partir das 19:00",
+  nomeLocal: "Salão de Festas",
+  endereco: "Rua Pereira Barreto, 416 - Centro, Pradópolis - SP",
+  embedMaps:
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3718.123!2d-48.816!3d-21.364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDIxJzUwLjQiUyA0OMKwNDgnNTcuNiJX!5e0!3m2!1spt-BR!2sbr!4v1",
+  mensagemTematica: "MEU PRIMEIRO ANINHO!",
+  subtituloMensagem:
+    "Venha comemorar junto comigo nesta aventura para me tornar o rei dos piratas.\nVenha fazer parte da minha tripulação!",
+  textoRecados: "Deixe aqui um recadinho! Prometo ler com muito carinho!",
+  prazoConfirmacao: "28/06/2026 - 22:45",
+};
+
+export default async function Home() {
+  let event = defaults;
+
+  try {
+    await connectDB();
+    const dbEvent = await Event.findOne().lean();
+    if (dbEvent) {
+      event = { ...defaults, ...JSON.parse(JSON.stringify(dbEvent)) };
+    }
+  } catch (err) {
+    console.error("Erro ao buscar evento do banco:", err);
+  }
 
   return (
     <main className="flex flex-col min-h-screen pb-20">
