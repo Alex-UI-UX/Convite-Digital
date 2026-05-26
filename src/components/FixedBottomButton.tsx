@@ -69,7 +69,7 @@ export default function FixedBottomButton() {
       <div className="fixed-bottom-bar">
         <button
           onClick={() => setModalOpen(true)}
-          className="btn-pirate w-full flex items-center justify-center gap-2 text-base"
+          className="w-full flex items-center justify-center gap-2 text-base font-bold py-3 px-6 rounded-xl bg-green-600 hover:bg-green-700 text-white transition-all shadow-lg"
         >
           <PartyPopper size={20} />
           Confirmar Presença
