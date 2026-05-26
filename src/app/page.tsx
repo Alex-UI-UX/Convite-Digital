@@ -149,6 +149,11 @@ export default function Home() {
       {/* RECADOS */}
       <RecadosSection textoRecados={event.textoRecados} />
 
+      {/* CRÉDITO */}
+      <p className="text-center text-[10px] text-[var(--color-marrom)] opacity-30 py-4">
+        Sistema de Convite Desenvolvido por Alex Rodrigo
+      </p>
+
       {/* Espaço para o botão fixo */}
       <div className="h-20" />
 
