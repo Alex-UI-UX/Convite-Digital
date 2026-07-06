@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { MapPin, Calendar, Clock } from "lucide-react";
+import { MapPin, Calendar, Clock, Camera } from "lucide-react";
 import FixedBottomButton from "@/components/FixedBottomButton";
 import RecadosSection from "@/components/RecadosSection";
 import CountdownTimer from "@/components/CountdownTimer";
@@ -173,6 +173,19 @@ export default async function Home() {
 
       {/* RECADOS */}
       <RecadosSection textoRecados={event.textoRecados} />
+
+      {/* MURAL DE FOTOS */}
+      <section className="px-6 py-8 max-w-lg mx-auto w-full text-center">
+        <a
+          href="https://festa-jose-1ano.pages.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-2 text-base font-bold py-3 px-8 rounded-xl bg-[var(--color-dourado)] hover:brightness-110 text-[var(--color-marrom-dark)] transition-all shadow-lg"
+        >
+          <Camera size={20} />
+          Mural de Fotos
+        </a>
+      </section>
 
       {/* CONTADOR REGRESSIVO */}
       <CountdownTimer dataEvento={event.data} horario={event.horario} />
