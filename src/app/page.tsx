@@ -177,7 +177,7 @@ export default async function Home() {
       {/* MURAL DE FOTOS */}
       <section className="px-6 py-8 max-w-lg mx-auto w-full text-center">
         <a
-          href="https://festa-jose-1ano.pages.dev/"
+          href="https://festa-jose-1ano.pages.dev/mural"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center gap-2 text-base font-bold py-3 px-8 rounded-xl bg-[var(--color-dourado)] hover:brightness-110 text-[var(--color-marrom-dark)] transition-all shadow-lg"
